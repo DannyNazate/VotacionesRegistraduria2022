@@ -12,3 +12,10 @@ class ControladorMesa():
     def show(self,id):
         laMesa=Mesa(self.repositorioMesa.findById(id))
         return laMesa.__dict__
+    def update(self, id, infoMesa):
+        mesaActual = Mesa(self.repositorioMesa.findById(id))
+        mesaActual.mesa = infoMesa["mesa"]
+        mesaActual.cantidad_inscritos = infoMesa["cantidad_inscritos"]
+        return self.repositorioMesa.save(mesaActual)
+    def delete(self,id):
+        return self.repositorioMesa.delete(id)

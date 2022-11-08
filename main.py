@@ -37,10 +37,19 @@ def crearMesa():
 def getMesas():
     json=miControladorMesa.index()
     return jsonify(json)
-
 @app.route("/mesa/<string:id>",methods=['GET'])
 def getMesa(id):
     json=miControladorMesa.show(id)
+    return jsonify(json)
+
+@app.route("/mesa/<string:id>",methods=['PUT'])
+def modificarMesa(id):
+    data = request.get_json()
+    json=miControladorMesa.update(id,data)
+    return jsonify(json)
+@app.route("/mesa/<string:id>",methods=['DELETE'])
+def eliminarMesa(id):
+    json=miControladorMesa.delete(id)
     return jsonify(json)
 ###################################################################################
 @app.route("/partido",methods=['POST'])
@@ -55,6 +64,11 @@ def getPartidos():
 @app.route("/partido/<string:id>",methods=['GET'])
 def getPartido(id):
     json=miControladorPartido.show(id)
+    return jsonify(json)
+@app.route("/partido/<string:id>",methods=['PUT'])
+def modificarPartido(id):
+    data = request.get_json()
+    json=miControladorPartido.update(id,data)
     return jsonify(json)
 @app.route("/partido/<string:id>",methods=['DELETE'])
 def eliminarPartido(id):
