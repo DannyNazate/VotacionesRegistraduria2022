@@ -92,12 +92,10 @@ class InterfaceRepositorio(Generic[T]):
             data.append(x)
         return data
 
-
     def getValuesDBRef(self, x):
         keys = x.keys()
         for k in keys:
             if isinstance(x[k], DBRef):
-
                 laColeccion = self.baseDatos[x[k].collection]
                 valor = laColeccion.find_one({"_id": ObjectId(x[k].id)})
                 valor["_id"] = valor["_id"].__str__()
@@ -136,8 +134,6 @@ class InterfaceRepositorio(Generic[T]):
         if len(newList) == 0:
             newList = x
         return newList
-
-
 
     def transformRefs(self, item):
         theDict = item.__dict__

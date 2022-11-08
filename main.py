@@ -28,28 +28,38 @@ def test():
     json["message"]="Server running ..."
     return jsonify(json)
 ###################################################################################
-@app.route("/mesa",methods=['GET'])
-def getMesa():
-    json=miControladorMesa.index()
-    return jsonify(json)
 @app.route("/mesa",methods=['POST'])
 def crearMesa():
     data = request.get_json()
     json=miControladorMesa.create(data)
     return jsonify(json)
-@app.route("/mesa/<string:id>",methods=['GET'])
-###################################################################################
-@app.route("/partido",methods=['GET'])
-def getPartido():
-    json=miControladorPartido.index()
+@app.route("/mesa",methods=['GET'])
+def getMesas():
+    json=miControladorMesa.index()
     return jsonify(json)
+
+@app.route("/mesa/<string:id>",methods=['GET'])
+def getMesa(id):
+    json=miControladorMesa.show(id)
+    return jsonify(json)
+###################################################################################
 @app.route("/partido",methods=['POST'])
 def crearPartido():
     data = request.get_json()
     json=miControladorPartido.create(data)
     return jsonify(json)
-@app.route("/mesa/<string:id>",methods=['GET'])
-###################################################################################
+@app.route("/partido",methods=['GET'])
+def getPartidos():
+    json=miControladorPartido.index()
+    return jsonify(json)
+@app.route("/partido/<string:id>",methods=['GET'])
+def getPartido(id):
+    json=miControladorPartido.show(id)
+    return jsonify(json)
+@app.route("/partido/<string:id>",methods=['DELETE'])
+def eliminarPartido(id):
+    json=miControladorPartido.delete(id)
+    return jsonify(json)
 def loadFileConfig():
     with open('config.json') as f:
         data = json.load(f)
