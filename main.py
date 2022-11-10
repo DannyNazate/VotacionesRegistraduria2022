@@ -11,14 +11,9 @@ cors = CORS(app)
 from Controladores.ControladorMesa import ControladorMesa
 from Controladores.ControladorPartido import ControladorPartido
 from Controladores.ControladorCandidato import ControladorCandidato
-
 miControladorMesa=ControladorMesa()
 miControladorPartido=ControladorPartido()
 miControladorCandidato=ControladorCandidato()
-
-#miControladorDepartamento=ControladorDepartamento()
-#miControladorMateria=ControladorMateria()
-#miControladorInscripcion=ControladorInscripcion()
 ###################################################################################
 @app.route("/",methods=['GET'])
 def test():
@@ -99,6 +94,9 @@ def loadFileConfig():
     with open('config.json') as f:
         data = json.load(f)
     return data
+################################################################################
+
+#################################################################################
 if __name__=='__main__':
     dataConfig = loadFileConfig()
     print("Server running : "+"http://"+dataConfig["url-backend"]+":" + str(dataConfig["port"]))
