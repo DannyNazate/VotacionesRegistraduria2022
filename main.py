@@ -102,6 +102,12 @@ def eliminarCandidato(id):
     return jsonify(json)
 
 ###################################################################################
+@app.route("/candidato/<string:id>/partido/<string:id_partido>",methods=['PUT'])
+def asignarPartidoACandidato(id,id_partido):
+    json=miControladorCandidato.asignarPartido(id,id_partido)
+    return jsonify(json)
+
+###################################################################################
 @app.route("/resultado",methods=['POST'])
 def crearResultado():
     data = request.get_json()
