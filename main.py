@@ -90,6 +90,11 @@ def modificarCandidato(id):
 def eliminarCandidato(id):
     json=miControladorCandidato.delete(id)
     return jsonify(json)
+################################################################
+@app.route("/candidato/<string:id>/partido/<string:id_partido>",methods=['PUT'])
+def asignarPartidoACandidato(id,id_partido):
+    json=miControladorCandidato.asignarPartido(id,id_partido)
+    return jsonify(json)
 def loadFileConfig():
     with open('config.json') as f:
         data = json.load(f)
