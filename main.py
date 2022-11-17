@@ -11,9 +11,12 @@ cors = CORS(app)
 from Controladores.ControladorMesa import ControladorMesa
 from Controladores.ControladorPartido import ControladorPartido
 from Controladores.ControladorCandidato import ControladorCandidato
+from Controladores.ControladorResultado import ControladorResultado
 miControladorMesa=ControladorMesa()
 miControladorPartido=ControladorPartido()
 miControladorCandidato=ControladorCandidato()
+miControladorResultado=ControladorResultado()
+
 ###################################################################################
 @app.route("/",methods=['GET'])
 def test():
@@ -95,13 +98,49 @@ def eliminarCandidato(id):
 def asignarPartidoACandidato(id,id_partido):
     json=miControladorCandidato.asignarPartido(id,id_partido)
     return jsonify(json)
+##################################################################
+@app.route("/resultado/candidato/<string:id_candidato>/mesa/<string:id_mesa>",methods=['POST'])
+def crearResultado(id_candidato,id_mesa):
+    data = request.get_json()
+    json=miControladorResultado.create(data,id_candidato,id_mesa)
+    return jsonify(json)
+@app.route("/resultado",methods=['GET'])
+def getResultados():
+    json=miControladorResultado.index()
+    return jsonify(json)
+@app.route("/resultado/<string:id>",methods=['GET'])
+def getResultado(id):
+    json=miControladorResultado.show(id)
+    return jsonify(json)
+
+@app.route("/resultado/<string:id_resultado>/candidato/<string:id_candidato>/mesa/<string:id_mesa>",methods=['PUT'])
+def modificarResultado(id_resultado,id_candidato,id_mesa):
+    data = request.get_json()
+    json=miControladorResultado.update(id_resultado,data,id_candidato,id_mesa)
+    return jsonify(json)
+@app.route("/resultado/<string:id_resultado>",methods=['DELETE'])
+def eliminarResultado(id_resultado):
+    json=miControladorResultado.delete(id_resultado)
+    return jsonify(json)
+################################################################################
+@app.route("/resultado/candidato/<string:id_candidato>/partido/<string:id_partido>",methods=['GET'])
+def resultadosPorCandidato(id_candidato,id_partido):
+    json=miControladorResultado.listarResultadosDeCandidatos(id_candidato,id_partido)
+    return jsonify(json)
+
+#################################################################################
+@app.route("/resultado/suma_votos/mesa/<string:id_mesa>",methods=['GET'])
+def getSumaVotosPorMesa(id_mesa):
+    json=miControladorResultado.sumaVotosPorMesa(id_mesa)
+    return jsonify(json)
+
+
+##################################################################################
 def loadFileConfig():
     with open('config.json') as f:
         data = json.load(f)
     return data
-################################################################################
 
-#################################################################################
 if __name__=='__main__':
     dataConfig = loadFileConfig()
     print("Server running : "+"http://"+dataConfig["url-backend"]+":" + str(dataConfig["port"]))
