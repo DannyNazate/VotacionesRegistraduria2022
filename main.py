@@ -123,9 +123,9 @@ def eliminarResultado(id_resultado):
     json=miControladorResultado.delete(id_resultado)
     return jsonify(json)
 ################################################################################
-@app.route("/resultado/candidato/<string:id_candidato>/partido/<string:id_partido>",methods=['GET'])
-def resultadosPorCandidato(id_candidato,id_partido):
-    json=miControladorResultado.listarResultadosDeCandidatos(id_candidato,id_partido)
+@app.route("/resultado",methods=['GET'])
+def resultadosPorCandidato(id_resultado):
+    json=miControladorResultado.listarResultadosDeCandidatos(id_resultado)
     return jsonify(json)
 
 #################################################################################
@@ -133,8 +133,6 @@ def resultadosPorCandidato(id_candidato,id_partido):
 def getSumaVotosPorMesa(id_mesa):
     json=miControladorResultado.sumaVotosPorMesa(id_mesa)
     return jsonify(json)
-
-
 ##################################################################################
 def loadFileConfig():
     with open('config.json') as f:
