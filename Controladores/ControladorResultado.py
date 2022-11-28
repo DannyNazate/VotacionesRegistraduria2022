@@ -46,8 +46,12 @@ class ControladorResultado():
     def listarResultadosDeCandidatos(self,id_resultado):
         return self.repositorioResultado.getListadoDeVotos(id_resultado)
 
-
+    def totalVotos(self):
+        return self.repositorioResultado.getListadoDeVotos()
     def sumaVotosPorMesa(self, id_mesa):
         return self.repositorioResultado.sumavotosPorMesa(id_mesa)
+
+    def VotosPorCandidato(self):
+        return self.repositorioResultado.getListadoDeVotosPorCandidato()
 
 

@@ -26,9 +26,6 @@ class ControladorCandidato():
     def delete(self,id):
         return self.repositorioCandidato.delete(id)
 
-    """
-            Relación departamento y materia
-            """
 
     def asignarPartido(self, id, id_partido):
         candidatoActual = Candidato(self.repositorioCandidato.findById(id))
